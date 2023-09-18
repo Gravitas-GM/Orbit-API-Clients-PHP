@@ -1,7 +1,8 @@
 <?php
 	namespace Gravitas\Orbit\Api\Clients;
 
-	use Psr\Log\LoggerInterface;
+	use Gravitas\Orbit\Api\Projection;
+	use Gravitas\Orbit\Api\Query;
 	use Symfony\Component\Serializer\Serializer;
 	use Symfony\Contracts\HttpClient\Exception\ExceptionInterface;
 	use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -27,5 +28,17 @@
 		 */
 		protected function deserialize(string $class, ResponseInterface $response): object {
 			return $this->serializer->deserialize($response->getContent(), $class, $this->responseFormat);
+		}
+
+		protected function buildOptions(?Projection $projection = null, ?Query $query = null): array {
+			$options = ['query' => []];
+
+			if ($projection)
+				$options['query']['p'] = $projection->build();
+
+			if ($query)
+				$options['query']['q'] = $query->build();
+
+			return $options;
 		}
 	}

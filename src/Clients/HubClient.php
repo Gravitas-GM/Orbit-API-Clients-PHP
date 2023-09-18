@@ -50,16 +50,4 @@
 
 			return $this->deserialize(User::class, $request);
 		}
-
-		protected function buildOptions(?Projection $projection = null, ?Query $query = null): array {
-			$options = ['query' => []];
-
-			if ($projection)
-				$options['query']['p'] = $query->build();
-
-			if ($query)
-				$options['query']['q'] = $query->build();
-
-			return $options;
-		}
 	}
