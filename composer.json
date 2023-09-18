@@ -1,0 +1,22 @@
+{
+	"name": "gravitas/orbit-api-clients",
+	"type": "library",
+	"license": "GPL-3.0",
+	"authors": [
+		{
+			"name": "Tyler Lartonoix",
+			"email": "tyler@lartonoix.com",
+			"homepage": "https://github.com/LartTyler"
+		}
+	],
+	"require": {
+		"php": "^8.1",
+		"symfony/contracts": "^3.3",
+		"symfony/serializer": "^6.3"
+	},
+	"autoload": {
+		"psr-4": {
+			"Gravitas\\Orbit\\Api\\": "./src"
+		}
+	}
+}
