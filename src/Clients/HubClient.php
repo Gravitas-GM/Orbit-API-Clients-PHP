@@ -22,7 +22,7 @@
 		 * @param Query|null      $query
 		 *
 		 * @return Account[]
-		 * @throws ExceptionInterface {@see static::deserialize()}
+		 * @throws ExceptionInterface {@see static::deserializeArray()}
 		 */
 		public function accounts(Projection $projection = null, Query $query = null): array {
 			$request = $this->client->request(
@@ -31,7 +31,7 @@
 				$this->buildOptions($projection, $query),
 			);
 
-			return $this->deserialize(Account::class, $request);
+			return $this->deserializeArray(Account::class, $request);
 		}
 
 		/**
@@ -39,7 +39,7 @@
 		 * @param Query|null      $query
 		 *
 		 * @return User[]
-		 * @throws ExceptionInterface {@see static::deserialize()}
+		 * @throws ExceptionInterface {@see static::deserializeArray()}
 		 */
 		public function users(Projection $projection = null, Query $query = null): array {
 			$request = $this->client->request(
@@ -48,6 +48,6 @@
 				$this->buildOptions($projection, $query),
 			);
 
-			return $this->deserialize(User::class, $request);
+			return $this->deserializeArray(User::class, $request);
 		}
 	}

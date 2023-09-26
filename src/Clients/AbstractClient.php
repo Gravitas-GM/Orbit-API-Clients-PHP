@@ -23,11 +23,24 @@
 		 * @param class-string<T>   $class
 		 * @param ResponseInterface $response
 		 *
-		 * @return T&object
+		 * @return T
 		 * @throws ExceptionInterface {@see ResponseInterface::getContent()}
 		 */
-		protected function deserialize(string $class, ResponseInterface $response): object {
+		protected function deserialize(string $class, ResponseInterface $response): mixed {
 			return $this->serializer->deserialize($response->getContent(), $class, $this->responseFormat);
+		}
+
+		/**
+		 * @template T of object
+		 *
+		 * @param class-string<T>   $class
+		 * @param ResponseInterface $response
+		 *
+		 * @return T[]
+		 * @throws ExceptionInterface {@see ResponseInterface::getContent()}
+		 */
+		protected function deserializeArray(string $class, ResponseInterface $response): mixed {
+			return $this->serializer->deserialize($response->getContent(), $class . '[]', $this->responseFormat);
 		}
 
 		protected function buildOptions(?Projection $projection = null, ?Query $query = null): array {
