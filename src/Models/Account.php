@@ -2,11 +2,9 @@
 	namespace Gravitas\Orbit\Api\Models;
 
 	class Account {
-		public function __construct(
-			public readonly int $id,
-			public readonly string $name,
+		public int $id;
+		public string $name;
 
-			// TODO Replace `int` with `DayOfWeek` from `gravitas/contracts` /tyler
-			public readonly int $weekStart,
-		) {}
+		// TODO Replace `int` with `DayOfWeek` from `gravitas/contracts` /tyler
+		public int $weekStart;
 	}
