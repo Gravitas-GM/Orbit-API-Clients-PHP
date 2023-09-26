@@ -8,18 +8,28 @@
 		) {}
 
 		public static function and(Expr ...$exprs): static {
-			return new static('$and', $exprs);
+			$value = [];
+
+			foreach ($exprs as $expr)
+				$value[$expr->getKey()] = $expr->getValue();
+
+			return new static('$and', $value);
 		}
 
 		public static function or(Expr ...$exprs): static {
-			return new static('$or', $exprs);
+			$value = [];
+
+			foreach ($exprs as $expr)
+				$value[] = [$expr->getKey() => $expr->getValue()];
+
+			return new static('$or', $value);
 		}
 
 		public static function eq(string $field, mixed $value): static {
 			return new static($field, $value);
 		}
 
-		public function neq(string $field, mixed $value): static {
+		public static function neq(string $field, mixed $value): static {
 			return new static(
 				$field,
 				[
@@ -28,7 +38,7 @@
 			);
 		}
 
-		public function in(string $field, array $values): static {
+		public static function in(string $field, array $values): static {
 			return new static(
 				$field,
 				[
@@ -37,7 +47,7 @@
 			);
 		}
 
-		public function nin(string $field, array $values): static {
+		public static function nin(string $field, array $values): static {
 			return new static(
 				$field,
 				[
@@ -46,7 +56,7 @@
 			);
 		}
 
-		public function gt(string $field, mixed $value): static {
+		public static function gt(string $field, mixed $value): static {
 			return new static(
 				$field,
 				[
@@ -55,7 +65,7 @@
 			);
 		}
 
-		public function gte(string $field, mixed $value): static {
+		public static function gte(string $field, mixed $value): static {
 			return new static(
 				$field,
 				[
@@ -64,7 +74,7 @@
 			);
 		}
 
-		public function lt(string $field, mixed $value): static {
+		public static function lt(string $field, mixed $value): static {
 			return new static(
 				$field,
 				[
@@ -73,7 +83,7 @@
 			);
 		}
 
-		public function lte(string $field, mixed $value): static {
+		public static function lte(string $field, mixed $value): static {
 			return new static(
 				$field,
 				[
@@ -82,7 +92,7 @@
 			);
 		}
 
-		public function like(string $field, string $pattern): static {
+		public static function like(string $field, string $pattern): static {
 			return new static(
 				$field,
 				[
@@ -91,7 +101,7 @@
 			);
 		}
 
-		public function nlike(string $field, string $pattern): static {
+		public static function nlike(string $field, string $pattern): static {
 			return new static(
 				$field,
 				[
@@ -100,7 +110,7 @@
 			);
 		}
 
-		public function exists(string $field, bool $check): static {
+		public static function exists(string $field, bool $check): static {
 			return new static(
 				$field,
 				[
@@ -142,5 +152,9 @@
 
 		public function getValue(): mixed {
 			return $this->value;
+		}
+
+		public function build(): array {
+			return [$this->getKey() => $this->getValue()];
 		}
 	}

@@ -15,7 +15,7 @@
 			if (!isset($this->query['$or']))
 				$this->query['$or'] = [];
 
-			$this->query['$or'][$expr->getKey()] = $expr->getValue();
+			$this->query['$or'][] = [$expr->getKey() => $expr->getValue()];
 
 			return $this;
 		}
